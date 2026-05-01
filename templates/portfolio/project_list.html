@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}AI Project Gallery | AI Innovation Portfolio{% endblock %}
+
+{% block content %}
+<div class="row mb-5">
+    <div class="col-lg-8 mx-auto text-center">
+        <h1 class="display-4 mb-3">AI Innovation Projects</h1>
+        <p class="lead text-secondary">
+            A showcase of my AI-driven projects, experiments, and creative explorations.
+            From intelligent agents to generative systems—all built with learning and innovation.
+        </p>
+        <p class="text-muted">
+            <small>{{ project_count }} project{{ project_count|pluralize }} featured</small>
+        </p>
+    </div>
+</div>
+
+<!-- Projects Gallery -->
+<div class="row g-4">
+    {% if projects %}
+        {% for project in projects %}
+        <div class="col-md-6 col-lg-4">
+            <!-- Project Card -->
+            <a href="{% url 'portfolio:project_detail' project.slug %}" class="text-decoration-none">
+                <div class="card h-100 border-0 bg-dark text-light shadow-sm" 
+                     style="overflow: hidden; transition: transform 0.3s, box-shadow 0.3s;">
+                    
+                    <!-- Card Image or Video Placeholder -->
+                    {% if project.image %}
+                        <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}" 
+                             style="object-fit: cover; height: 200px;">
+                    {% elif project.video_file %}
+                        <!-- Show video thumbnail -->
+                        <div class="bg-secondary d-flex align-items-center justify-content-center" 
+                             style="height: 200px;">
+                            <span style="font-size: 2rem;">🎬</span>
+                        </div>
+                    {% else %}
+                        <!-- Placeholder for projects without media -->
+                        <div class="bg-secondary d-flex align-items-center justify-content-center" 
+                             style="height: 200px;">
+                            <span style="font-size: 2rem;">🤖</span>
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title mb-0">{{ project.title }}</h5>
+                            <div class="d-flex gap-2">
+                                {% if project.deployed_url %}
+                                    <a href="{{ project.deployed_url }}" target="_blank" class="text-info" 
+                                       title="View Live Demo" style="text-decoration: none;">
+                                        <i class="fas fa-rocket"></i>
+                                    </a>
+                                {% endif %}
+                                {% if project.github_url %}
+                                    <a href="{{ project.github_url }}" target="_blank" class="text-light" 
+                                       title="View on GitHub" style="text-decoration: none;">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <!-- Category Badge -->
+                        <span class="badge bg-info text-dark mb-2">
+                            {{ project.get_category_display }}
+                        </span>
+                        
+                        <!-- Description Preview -->
+                        <p class="card-text text-secondary small">
+                            {{ project.description|truncatewords:25 }}
+                        </p>
+                    </div>
+                    
+                    <!-- Card Footer with Date -->
+                    <div class="card-footer bg-dark border-top border-secondary">
+                        <small class="text-muted">
+                            Added {{ project.created_at|date:"M d, Y" }}
+                        </small>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    {% else %}
+        <!-- Empty State -->
+        <div class="col-12">
+            <div class="alert alert-secondary text-center py-5">
+                <h3>No projects yet</h3>
+                <p>Projects will appear here once you add them in the admin panel.</p>
+                <p>
+                    <small>
+                        Go to <a href="/admin/portfolio_app/aiproject/">/admin</a> 
+                        to add your first AI project!
+                    </small>
+                </p>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

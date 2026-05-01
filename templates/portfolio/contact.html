@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Me | AI Innovation Portfolio{% endblock %}
+
+{% block content %}
+<!-- Contact Header -->
+<div class="row mb-5">
+    <div class="col-lg-8 mx-auto text-center">
+        <h1 class="display-4 mb-3">Let's Connect</h1>
+        <p class="lead text-secondary">
+            Have a project idea, want to collaborate, or just want to chat about AI? I'd love to hear from you!
+        </p>
+    </div>
+</div>
+
+<!-- Contact Form -->
+<div class="row">
+    <div class="col-lg-6 mx-auto">
+        <div class="bg-dark p-5 rounded" style="border: 1px solid #30363d;">
+            <form method="POST" action="{% url 'portfolio:contact' %}" class="contact-form">
+                {% csrf_token %}
+                
+                <!-- Name Field -->
+                <div class="mb-4">
+                    <label for="name" class="form-label">
+                        Your Name
+                        <span class="text-danger">*</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        class="form-control bg-secondary border-0 text-light" 
+                        id="name" 
+                        name="name" 
+                        placeholder="John Doe"
+                        required
+                        style="color: var(--text-light) !important;"
+                    >
+                </div>
+                
+                <!-- Email Field -->
+                <div class="mb-4">
+                    <label for="email" class="form-label">
+                        Your Email
+                        <span class="text-danger">*</span>
+                    </label>
+                    <input 
+                        type="email" 
+                        class="form-control bg-secondary border-0 text-light" 
+                        id="email" 
+                        name="email" 
+                        placeholder="you@example.com"
+                        required
+                        style="color: var(--text-light) !important;"
+                    >
+                    <small class="text-muted">I'll use this to reply to you</small>
+                </div>
+                
+                <!-- Subject Field -->
+                <div class="mb-4">
+                    <label for="subject" class="form-label">
+                        Subject
+                        <span class="text-danger">*</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        class="form-control bg-secondary border-0 text-light" 
+                        id="subject" 
+                        name="subject" 
+                        placeholder="What's this about?"
+                        required
+                        style="color: var(--text-light) !important;"
+                    >
+                </div>
+                
+                <!-- Message Field -->
+                <div class="mb-4">
+                    <label for="message" class="form-label">
+                        Message
+                        <span class="text-danger">*</span>
+                    </label>
+                    <textarea 
+                        class="form-control bg-secondary border-0 text-light" 
+                        id="message" 
+                        name="message" 
+                        rows="6" 
+                        placeholder="Tell me more about your project, idea, or just say hi!"
+                        required
+                        style="color: var(--text-light) !important; resize: vertical;"
+                    ></textarea>
+                </div>
+                
+                <!-- Submit Button -->
+                <div class="d-grid mb-3">
+                    <button 
+                        type="submit" 
+                        class="btn btn-info btn-lg"
+                        style="font-weight: 600; letter-spacing: 0.5px;"
+                    >
+                        Send Message ✨
+                    </button>
+                </div>
+                
+                <small class="text-muted d-block text-center">
+                    All fields are required. I'll get back to you as soon as I can!
+                </small>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Alternative Contact Methods -->
+<div class="row mt-5">
+    <div class="col-lg-8 mx-auto">
+        <div class="text-center">
+            <h4 class="mb-4">Other Ways to Reach Out</h4>
+            
+            <div class="row g-4">
+                <!-- Email -->
+                <div class="col-md-6">
+                    <div class="bg-dark p-4 rounded" style="border: 1px solid #30363d;">
+                        <h5 class="text-info mb-2">📧 Email</h5>
+                        <p class="text-secondary">
+                            <a href="mailto:darbyfra@gmail.com" class="text-decoration-none">
+                                darbyfra@gmail.com
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Social / Links -->
+                <div class="col-md-6">
+                    <div class="bg-dark p-4 rounded" style="border: 1px solid #30363d;">
+                        <h5 class="text-info mb-2">🔗 Social</h5>
+                        <p class="text-secondary small">
+                            Find me on GitHub, LinkedIn, or Twitter
+                            <br />
+                            <small class="text-muted">(Links coming soon!)</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Styling for form inputs -->
+<style>
+    .form-control {
+        transition: background-color 0.2s, border-color 0.2s;
+    }
+    
+    .form-control:focus {
+        background-color: #30363d;
+        border-color: var(--accent-color);
+        color: var(--text-light);
+        box-shadow: 0 0 0 0.2rem rgba(88, 166, 255, 0.25);
+    }
+    
+    .form-control::placeholder {
+        color: #8b949e;
+    }
+</style>
+{% endblock %}

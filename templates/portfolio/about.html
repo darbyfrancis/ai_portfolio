@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Me | AI Innovation Portfolio{% endblock %}
+
+{% block content %}
+<!-- About Header -->
+<div class="row mb-5">
+    <div class="col-lg-8 mx-auto text-center">
+        <h1 class="display-4 mb-3">About Me</h1>
+        <p class="lead text-secondary">
+            Exploring the intersection of creativity and technology
+        </p>
+    </div>
+</div>
+
+<!-- Profile Section with Photo -->
+<div class="row mb-5">
+    <div class="col-lg-8 mx-auto">
+        <div class="row align-items-center g-5">
+            <!-- Profile Photo -->
+            <div class="col-md-4 text-center">
+                {% if profile_photo %}
+                    <img src="{{ profile_photo }}" alt="Profile Photo" class="img-fluid rounded-circle" 
+                         style="width: 250px; height: 250px; object-fit: cover; border: 3px solid var(--accent-color); box-shadow: 0 0 20px rgba(88, 166, 255, 0.2);">
+                {% else %}
+                    <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center mx-auto" 
+                         style="width: 250px; height: 250px; border: 3px solid var(--accent-color);">
+                        <span style="font-size: 4rem;">📸</span>
+                    </div>
+                    <small class="text-muted d-block mt-3">
+                        <em>To add your photo, save it as<br/><code>portfolio/static/img/profile.jpg</code></em>
+                    </small>
+                {% endif %}
+            </div>
+            
+            <!-- Bio Section -->
+            <div class="col-md-8">
+                <h3 class="mb-3">Hi, I'm Darby Francis!</h3>
+                <p class="lead text-secondary mb-4">
+                    👋 Senior at Baylor University studying Management of Information Systems and Business Management. 
+                    Currently immersed in MIS 4v98—a deep dive into AI systems and real-world applications. 
+                    This portfolio showcases the agents, generative AI content, and Django applications we've built this semester!
+                </p>
+                
+                <p class="text-secondary mb-3">
+                    <strong>My Mission:</strong> Build practical AI solutions that bridge the gap between innovative technology 
+                    and real-world business applications. Every project here represents hands-on learning and experimentation 
+                    in creative AI systems.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- About Content -->
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <!-- Personal Story Section -->
+        <div class="bg-dark p-5 rounded mb-4" style="border: 1px solid #30363d;">
+            <h3 class="mb-4">My Journey in MIS 4v98</h3>
+            
+            <p class="lead text-secondary mb-4">
+                This semester, I've been working through an intensive course on AI systems and their real-world applications. 
+                What started as theory quickly turned into hands-on experimentation—building multi-agent systems, generating 
+                creative content with AI, and developing full-stack web applications to showcase it all.
+            </p>
+            
+            <p class="text-secondary mb-4">
+                From training AI agents to automate complex workflows, to exploring generative image and video models, 
+                to building this Django portfolio—each project pushed my understanding of what's possible with AI. 
+                The focus has always been practical: How can these tools actually solve problems? How do you build at scale?
+            </p>
+            
+            <p class="text-secondary">
+                This portfolio is a living record of that semester. It's not just a showcase of finished projects—it's 
+                proof of the learning journey. Every agent we built, every model we experimented with, and every line of 
+                Django code represents "vibe coding" in action: thoughtful development, deep understanding, and real innovation.
+            </p>
+        </div>
+        
+        <!-- Skills Section -->
+        <div class="bg-dark p-5 rounded mb-4" style="border: 1px solid #30363d;">
+            <h3 class="mb-4">What I Work With (This Semester)</h3>
+            
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <h5 class="text-info">🤖 AI & Agents</h5>
+                    <ul class="text-secondary small">
+                        <li>Multi-agent systems & automation</li>
+                        <li>Generative AI image and video models</li>
+                        <li>LLMs for creative applications</li>
+                        <li>AI model experimentation & prompt engineering</li>
+                        <li>Real-world AI problem solving</li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-6">
+                    <h5 class="text-info">💻 Web Development</h5>
+                    <ul class="text-secondary small">
+                        <li>Django (full-stack framework)</li>
+                        <li>Database design (SQLite, SQL)</li>
+                        <li>API development & integration</li>
+                        <li>Bootstrap 5 & responsive design</li>
+                        <li>Template-driven architecture</li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-6">
+                    <h5 class="text-info">🎨 Creative & Content</h5>
+                    <ul class="text-secondary small">
+                        <li>Generative video & media</li>
+                        <li>Image synthesis & manipulation</li>
+                        <li>Content creation with AI</li>
+                        <li>UI/UX design thinking</li>
+                        <li>Portfolio & project showcasing</li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-6">
+                    <h5 class="text-info">🚀 Professional Skills</h5>
+                    <ul class="text-secondary small">
+                        <li>Project-based learning</li>
+                        <li>Problem-solving & debugging</li>
+                        <li>Git & version control</li>
+                        <li>Technical documentation</li>
+                        <li>Continuous experimentation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Philosophy Section -->
+        <div class="bg-dark p-5 rounded mb-4" style="border: 1px solid #30363d;">
+            <h3 class="mb-3">My Philosophy</h3>
+            
+            <blockquote class="text-secondary border-start ps-4 border-info">
+                <p>
+                    <strong>"AI is not just about technology—it's about real-world impact. Build thoughtfully, experiment boldly, learn deeply."</strong>
+                </p>
+            </blockquote>
+            
+            <p class="text-secondary">
+                This semester taught me that the best AI projects aren't the most complex—they're the ones that solve actual problems 
+                with intention and clarity. Every agent, every model, every line of code in this portfolio reflects that philosophy. 
+                We're not just learning how AI works—we're learning how to build AI systems that matter. That's what vibe coding really means.
+            </p>
+        </div>
+        
+        <!-- Call to Action -->
+        <div class="text-center mb-5">
+            <p class="lead text-secondary mb-4">
+                Want to collaborate, chat about AI, or just say hi?
+            </p>
+            <a href="{% url 'portfolio:contact' %}" class="btn btn-info btn-lg">
+                Get in Touch →
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

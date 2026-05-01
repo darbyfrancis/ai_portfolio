@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ project.title }} | AI Innovation Portfolio{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb Navigation -->
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb bg-dark border border-secondary p-3">
+        <li class="breadcrumb-item"><a href="{% url 'portfolio:project_list' %}">Gallery</a></li>
+        <li class="breadcrumb-item active text-secondary">{{ project.title }}</li>
+    </ol>
+</nav>
+
+<!-- Project Header -->
+<div class="row mb-5">
+    <div class="col-lg-8 mx-auto">
+        <h1 class="display-5 mb-3">{{ project.title }}</h1>
+        
+        <!-- Category & Date Info -->
+        <div class="d-flex gap-3 mb-4">
+            <span class="badge bg-info text-dark p-2">
+                {{ project.get_category_display }}
+            </span>
+            <small class="text-muted">
+                Added <strong>{{ project.created_at|date:"F d, Y" }}</strong>
+            </small>
+            {% if project.updated_at != project.created_at %}
+                <small class="text-muted">
+                    | Updated <strong>{{ project.updated_at|date:"F d, Y" }}</strong>
+                </small>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Project Media (Image/Video) -->
+<div class="row mb-5">
+    <div class="col-lg-8 mx-auto">
+        {% if project.video_file %}
+            <!-- Display uploaded video file -->
+            <div class="mb-4">
+                <h4 class="text-secondary mb-3">Project Demo Video</h4>
+                <video width="100%" height="auto" controls style="border-radius: 8px; border: 1px solid #30363d;">
+                    <source src="{{ project.video_file.url }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        {% elif project.video_url %}
+            <!-- Embed external video (YouTube, Vimeo, etc.) -->
+            <div class="mb-4">
+                <h4 class="text-secondary mb-3">Project Demo Video</h4>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; 
+                            border-radius: 8px; background: #161b22;">
+                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+                                   border: 1px solid #30363d; border-radius: 8px;"
+                            src="{{ project.video_url }}" 
+                            frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
+                                     gyroscope; picture-in-picture" allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        {% endif %}
+        
+        {% if project.image %}
+            <!-- Display project image -->
+            <div class="mb-4">
+                {% if not project.video_file and not project.video_url %}
+                    <h4 class="text-secondary mb-3">Project Screenshot</h4>
+                {% endif %}
+                <img src="{{ project.image.url }}" alt="{{ project.title }}" class="img-fluid" 
+                     style="border-radius: 8px; border: 1px solid #30363d; max-width: 100%;">
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Project Description -->
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="bg-dark p-4 rounded" style="border: 1px solid #30363d;">
+            <h3 class="mb-3">About This Project</h3>
+            
+            <!-- Main Description -->
+            <div class="mb-4">
+                <p class="lead text-secondary">
+                    {{ project.description|linebreaks }}
+                </p>
+            </div>
+            
+            <!-- GitHub & Deployed Links Navigation -->
+            <div class="mt-4 d-flex gap-2 flex-wrap">
+                {% if project.deployed_url %}
+                    <a href="{{ project.deployed_url }}" target="_blank" class="btn btn-info">
+                        <i class="fas fa-rocket"></i> View Live
+                    </a>
+                {% endif %}
+                {% if project.github_url %}
+                    <a href="{{ project.github_url }}" target="_blank" class="btn btn-outline-light">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
+                {% endif %}
+                <a href="{% url 'portfolio:project_list' %}" class="btn btn-outline-info">
+                    ← Back to Gallery
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
