@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 from django.core.mail import send_mail
 from django.contrib import messages
-from .models import AIProject
+from .models import AIProject, Skill
 
 
 def project_list(request):
@@ -117,3 +117,58 @@ def contact(request):
         'page_title': 'Contact Me',
     }
     return render(request, 'portfolio/contact.html', context)
+
+
+def skills(request):
+    """
+    Display all your skills grouped by category.
+    
+    This view:
+    - Fetches all skills from the database
+    - Groups them by category for better organization
+    - Displays proficiency levels and years of experience
+    
+    URL: /skills/
+    Template: portfolio/skills.html
+    """
+    # Get all skills, organized by category
+    skills_by_category = {}
+    for skill in Skill.objects.all():
+        category = skill.get_category_display()
+        if category not in skills_by_category:
+            skills_by_category[category] = []
+        skills_by_category[category].append(skill)
+    
+    context = {
+        'page_title': 'Skills & Technologies',
+        'skills_by_category': skills_by_category,
+    }
+    return render(request, 'portfolio/skills.html', context)
+
+
+def resume(request):
+    """
+    Display your resume/CV page.
+    
+    This page showcases:
+    - Professional summary
+    - Experience
+    - Education
+    - Featured projects
+    - Key skills
+    
+    URL: /resume/
+    Template: portfolio/resume.html
+    """
+    # Get featured projects for the resume
+    projects = AIProject.objects.filter(is_published=True)[:6]
+    
+    # Get skills for resume
+    all_skills = Skill.objects.all()
+    
+    context = {
+        'page_title': 'Resume / CV',
+        'projects': projects,
+        'skills': all_skills,
+    }
+    return render(request, 'portfolio/resume.html', context)

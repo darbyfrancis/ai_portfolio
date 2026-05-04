@@ -25,4 +25,12 @@ urlpatterns = [
     # Contact page with form
     # URL: http://yoursite.com/contact/
     path('contact/', views.contact, name='contact'),
+    
+    # Skills page - display all your skills and technologies
+    # URL: http://yoursite.com/skills/
+    path('skills/', views.skills, name='skills'),
+    
+    # Resume/CV page
+    # URL: http://yoursite.com/resume/
+    path('resume/', views.resume, name='resume'),
 ]

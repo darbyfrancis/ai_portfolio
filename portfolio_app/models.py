@@ -38,6 +38,49 @@ class AIProject(models.Model):
         help_text="Explain what this project does and how you built it (vibe coding style!)"
     )
     
+    # One-sentence summary of the project
+    summary = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="Quick one-line description of the project"
+    )
+    
+    # Business problem this project solves
+    business_problem = models.TextField(
+        blank=True,
+        help_text="What problem does this project solve?"
+    )
+    
+    # Tools and technologies used (comma-separated or newline-separated)
+    tools_used = models.TextField(
+        blank=True,
+        help_text="List the tools and technologies used (Python, TensorFlow, OpenAI, etc.)"
+    )
+    
+    # Key features of the project
+    key_features = models.TextField(
+        blank=True,
+        help_text="Bullet points or paragraphs describing key features"
+    )
+    
+    # Your specific role and contribution
+    your_role = models.TextField(
+        blank=True,
+        help_text="What was your specific role and contribution to this project?"
+    )
+    
+    # The biggest challenge faced
+    challenge = models.TextField(
+        blank=True,
+        help_text="What was the biggest challenge you faced?"
+    )
+    
+    # What you learned from the project
+    lessons_learned = models.TextField(
+        blank=True,
+        help_text="What did you learn from building this project?"
+    )
+    
     # Optional: Featured image for the project card
     image = models.ImageField(
         upload_to='projects/',
@@ -115,3 +158,70 @@ class AIProject(models.Model):
         Returns the project title so you can easily identify projects.
         """
         return self.title
+
+
+class Skill(models.Model):
+    """
+    Represents a skill or technology you're proficient in.
+    Used to display on the Skills page.
+    """
+    
+    PROFICIENCY_CHOICES = [
+        ('beginner', 'Beginner'),
+        ('intermediate', 'Intermediate'),
+        ('advanced', 'Advanced'),
+        ('expert', 'Expert'),
+    ]
+    
+    # Name of the skill (e.g., "Python", "Django", "OpenAI")
+    name = models.CharField(
+        max_length=100,
+        unique=True,
+        help_text="Name of the skill or technology"
+    )
+    
+    # Category of the skill
+    category = models.CharField(
+        max_length=50,
+        choices=[
+            ('programming', 'Programming Languages'),
+            ('frameworks', 'Frameworks & Libraries'),
+            ('ai_ml', 'AI & Machine Learning'),
+            ('databases', 'Databases'),
+            ('tools', 'Tools & Platforms'),
+            ('other', 'Other'),
+        ],
+        default='tools',
+        help_text="Category this skill belongs to"
+    )
+    
+    # Your proficiency level
+    proficiency = models.CharField(
+        max_length=20,
+        choices=PROFICIENCY_CHOICES,
+        default='intermediate',
+        help_text="Your proficiency level with this skill"
+    )
+    
+    # Years of experience (optional)
+    years_experience = models.DecimalField(
+        max_digits=3,
+        decimal_places=1,
+        blank=True,
+        null=True,
+        help_text="Years of experience with this skill"
+    )
+    
+    # Display order on the page
+    order = models.IntegerField(
+        default=0,
+        help_text="Order to display skills on the page (0 = default order)"
+    )
+    
+    class Meta:
+        ordering = ['category', 'order', 'name']
+        verbose_name = 'Skill'
+        verbose_name_plural = 'Skills'
+    
+    def __str__(self):
+        return f"{self.name} ({self.get_proficiency_display()})"

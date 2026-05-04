@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block title %}Skills & Technologies | AI Innovation Portfolio{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="row mb-5">
+    <div class="col-lg-8 mx-auto text-center">
+        <h1 class="display-4 mb-3">Skills & Technologies</h1>
+        <p class="lead text-secondary">
+            A comprehensive overview of the tools, frameworks, and technologies I work with.
+        </p>
+    </div>
+</div>
+
+<!-- Skills by Category -->
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        {% if skills_by_category %}
+            {% for category, skills_list in skills_by_category.items %}
+            <div class="mb-5">
+                <!-- Category Header -->
+                <h2 class="h3 mb-4 text-info">
+                    {% if category == "Programming Languages" %}
+                        <i class="fas fa-code"></i> {{ category }}
+                    {% elif category == "Frameworks & Libraries" %}
+                        <i class="fas fa-cube"></i> {{ category }}
+                    {% elif category == "AI & Machine Learning" %}
+                        <i class="fas fa-brain"></i> {{ category }}
+                    {% elif category == "Databases" %}
+                        <i class="fas fa-database"></i> {{ category }}
+                    {% elif category == "Tools & Platforms" %}
+                        <i class="fas fa-tools"></i> {{ category }}
+                    {% else %}
+                        <i class="fas fa-certificate"></i> {{ category }}
+                    {% endif %}
+                </h2>
+                
+                <!-- Skills Grid -->
+                <div class="row g-3">
+                    {% for skill in skills_list %}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 border-0 bg-dark text-light" style="border: 1px solid #30363d;">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3">{{ skill.name }}</h5>
+                                
+                                <!-- Proficiency Level -->
+                                <div class="mb-3">
+                                    <small class="text-muted">Proficiency Level</small>
+                                    <div class="mt-2">
+                                        {% if skill.proficiency == 'beginner' %}
+                                            <span class="badge bg-warning">Beginner</span>
+                                        {% elif skill.proficiency == 'intermediate' %}
+                                            <span class="badge bg-info">Intermediate</span>
+                                        {% elif skill.proficiency == 'advanced' %}
+                                            <span class="badge bg-success">Advanced</span>
+                                        {% elif skill.proficiency == 'expert' %}
+                                            <span class="badge bg-danger">Expert</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                                <!-- Progress Bar -->
+                                <div class="mb-3">
+                                    {% if skill.proficiency == 'beginner' %}
+                                        <div class="progress" style="height: 8px; background: #30363d;">
+                                            <div class="progress-bar bg-warning" style="width: 25%; height: 8px;"></div>
+                                        </div>
+                                    {% elif skill.proficiency == 'intermediate' %}
+                                        <div class="progress" style="height: 8px; background: #30363d;">
+                                            <div class="progress-bar bg-info" style="width: 50%; height: 8px;"></div>
+                                        </div>
+                                    {% elif skill.proficiency == 'advanced' %}
+                                        <div class="progress" style="height: 8px; background: #30363d;">
+                                            <div class="progress-bar bg-success" style="width: 75%; height: 8px;"></div>
+                                        </div>
+                                    {% elif skill.proficiency == 'expert' %}
+                                        <div class="progress" style="height: 8px; background: #30363d;">
+                                            <div class="progress-bar bg-danger" style="width: 100%; height: 8px;"></div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <!-- Years of Experience -->
+                                {% if skill.years_experience %}
+                                <small class="text-muted">
+                                    <i class="fas fa-clock"></i> {{ skill.years_experience }} year{{ skill.years_experience|pluralize }}
+                                </small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-secondary text-center py-5">
+                <h3>No skills added yet</h3>
+                <p>Skills will appear here once you add them in the admin panel.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Back to Home -->
+<div class="row mt-5">
+    <div class="col-lg-8 mx-auto">
+        <a href="{% url 'portfolio:project_list' %}" class="btn btn-outline-info">
+            ← Back to Gallery
+        </a>
+    </div>
+</div>
+{% endblock %}

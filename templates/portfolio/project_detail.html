@@ -78,25 +78,98 @@
 <div class="row">
     <div class="col-lg-8 mx-auto">
         <div class="bg-dark p-4 rounded" style="border: 1px solid #30363d;">
-            <h3 class="mb-3">About This Project</h3>
+            <h3 class="mb-4">Project Overview</h3>
+            
+            <!-- One-Sentence Summary -->
+            {% if project.summary %}
+            <div class="mb-4">
+                <h5 class="text-info">Summary</h5>
+                <p class="text-secondary lead">
+                    {{ project.summary }}
+                </p>
+            </div>
+            {% endif %}
             
             <!-- Main Description -->
             <div class="mb-4">
-                <p class="lead text-secondary">
+                <h5 class="text-info">Description</h5>
+                <p class="text-secondary">
                     {{ project.description|linebreaks }}
                 </p>
             </div>
             
+            <!-- Business Problem -->
+            {% if project.business_problem %}
+            <div class="mb-4">
+                <h5 class="text-info">Business Problem</h5>
+                <p class="text-secondary">
+                    {{ project.business_problem|linebreaks }}
+                </p>
+            </div>
+            {% endif %}
+            
+            <!-- Tools & Technologies Used -->
+            {% if project.tools_used %}
+            <div class="mb-4">
+                <h5 class="text-info">Tools & Technologies</h5>
+                <div class="text-secondary">
+                    {% for tool in project.tools_used|split:"," %}
+                        <span class="badge bg-secondary me-2 mb-2">{{ tool|strip }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Key Features -->
+            {% if project.key_features %}
+            <div class="mb-4">
+                <h5 class="text-info">Key Features</h5>
+                <div class="text-secondary">
+                    {{ project.key_features|linebreaks }}
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Your Role / Contribution -->
+            {% if project.your_role %}
+            <div class="mb-4">
+                <h5 class="text-info">My Role & Contribution</h5>
+                <p class="text-secondary">
+                    {{ project.your_role|linebreaks }}
+                </p>
+            </div>
+            {% endif %}
+            
+            <!-- Biggest Challenge -->
+            {% if project.challenge %}
+            <div class="mb-4">
+                <h5 class="text-info">Biggest Challenge</h5>
+                <p class="text-secondary">
+                    {{ project.challenge|linebreaks }}
+                </p>
+            </div>
+            {% endif %}
+            
+            <!-- What You Learned -->
+            {% if project.lessons_learned %}
+            <div class="mb-4">
+                <h5 class="text-info">What I Learned</h5>
+                <p class="text-secondary">
+                    {{ project.lessons_learned|linebreaks }}
+                </p>
+            </div>
+            {% endif %}
+            
             <!-- GitHub & Deployed Links Navigation -->
-            <div class="mt-4 d-flex gap-2 flex-wrap">
+            <div class="mt-5 pt-4 border-top border-secondary d-flex gap-2 flex-wrap">
                 {% if project.deployed_url %}
                     <a href="{{ project.deployed_url }}" target="_blank" class="btn btn-info">
-                        <i class="fas fa-rocket"></i> View Live
+                        <i class="fas fa-rocket"></i> View Live Demo
                     </a>
                 {% endif %}
                 {% if project.github_url %}
                     <a href="{{ project.github_url }}" target="_blank" class="btn btn-outline-light">
-                        <i class="fab fa-github"></i> View on GitHub
+                        <i class="fab fa-github"></i> View Source Code
                     </a>
                 {% endif %}
                 <a href="{% url 'portfolio:project_list' %}" class="btn btn-outline-info">
