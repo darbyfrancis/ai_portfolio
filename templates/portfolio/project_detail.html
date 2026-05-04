@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load portfolio_filters %}
 
 {% block title %}{{ project.title }} | AI Innovation Portfolio{% endblock %}
 
@@ -114,9 +113,7 @@
             <div class="mb-4">
                 <h5 class="text-info">Tools & Technologies</h5>
                 <div class="text-secondary">
-                    {% for tool in project.tools_used|split:"," %}
-                        <span class="badge bg-secondary me-2 mb-2">{{ tool|strip }}</span>
-                    {% endfor %}
+                    <p>{{ project.tools_used }}</p>
                 </div>
             </div>
             {% endif %}
